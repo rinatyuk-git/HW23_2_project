@@ -21,6 +21,9 @@ class Category(models.Model):
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
 
+    def __str__(self):
+        return self.category_name
+
 
 class Product(models.Model):
     product_name = models.CharField(
@@ -43,7 +46,7 @@ class Product(models.Model):
         Category,
         on_delete=models.SET_NULL,
         verbose_name="Категория",
-        help_text="Введите категорию продукта",
+        help_text="Выберите категорию продукта",
         related_name='products',
         **NULLABLE
     )  # pass # Категория
@@ -72,7 +75,7 @@ class Product(models.Model):
     class Meta:
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
-        # ordering = ('name',)
+        ordering = ['product_name', 'category']
 
     def __str__(self):
-        return self.name
+        return self.product_name
