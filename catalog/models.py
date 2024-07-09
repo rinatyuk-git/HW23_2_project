@@ -45,9 +45,23 @@ class Product(models.Model):
         related_name='products',
         **NULLABLE
     )  # pass # Категория
-    product_price = models.DecimalField  # Цена за покупку
-    created_at = models.DateField  # Дата создания (записи в БД)
-    updated_at = models.DateField  # Дата последнего изменения (записи в БД)
+    product_price = models.DecimalField(
+        max_digits=10, 
+        decimal_places=2,
+        verbose_name="Цена продукта",
+        help_text="Задайте цену продукта",
+    )  # Цена за покупку
+    created_at = models.DateField(
+        auto_now_add=True,
+        verbose_name="Дата внесения продукта",
+        help_text="Задайте дату внесения продукта",
+    ) # Дата создания (записи в БД)
+    updated_at = models.DateField(
+        auto_now=True,
+        verbose_name="Дата последнего изменения продукта",
+        help_text="Задайте дату последнего изменения продукта",
+    )  # Дата последнего изменения (записи в БД)
+    manufactured_at = models.DateField # Дата производства продукта
 
     class Meta:
         verbose_name = "Продукт"
@@ -56,11 +70,3 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
-
-
-
-# Свяжите продукт и категорию, используя связь между таблицами «Один ко многим».
-# У одной категории может быть много продуктов, но у одного продукта может быть только одна категория.
-# Воспользуйтесь специальным полем модели — ForeignKey().
-# При необходимости подробнее про то, как работает такое поле, можно почитать тут.
-# Поля «Дата создания» и «Дата последнего изменения» стали стандартом для моделей. Их общепринятые названия — created_at и updated_at соответственно.
