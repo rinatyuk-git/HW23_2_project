@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.db import models
 
 NULLABLE = {"blank": True, "null": True}
@@ -62,7 +64,7 @@ class Product(models.Model):
         help_text="Задайте дату последнего изменения продукта",
     )  # Дата последнего изменения (записи в БД)
     manufactured_at = models.DateField(
-        default=True,
+        default=date.today(),
         verbose_name="Дата производства продукта",
         help_text="Задайте дату производства продукта",
     ) # Дата производства продукта
