@@ -1,0 +1,22 @@
+{% extends 'catalog/product_view.html' %}
+{% load my_tags %}
+{% block content %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Информация о товаре</h1>
+</div>
+<div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <div class="col">
+            <div class="card shadow-sm">
+                <img src="{{ product.product_image | media_filter }}">
+                <div class="card-body">
+                    <p class="card-text">Наименование: {{ product.product_name }}</p>
+                    <p class="card-text">Описание: {{ product.product_info }}</p>
+                    <p class="card-text">Категория: {{ product.category }}</p>
+                </div>
+                <a class="btn btn-sm btn-outline-secondary" href="{% url 'catalog:product_view' %}" role="button">Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
