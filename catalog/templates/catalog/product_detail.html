@@ -10,9 +10,9 @@
             <div class="card shadow-sm">
                 <img src="{{ product.product_image | media_filter }}">
                 <div class="card-body">
-                    <p class="card-text">Наименование: {{ product.product_name }}</p>
-                    <p class="card-text">Описание: {{ product.product_info }}</p>
-                    <p class="card-text">Категория: {{ product.category }}</p>
+                    <p class="card-text">Наименование: {{ object.product_name }}</p>
+                    <p class="card-text">Описание: {{ object.product_info }}</p>
+                    <p class="card-text">Категория: {{ object.category }}</p>
                 </div>
                 <a class="btn btn-sm btn-outline-secondary" href="{% url 'catalog:product_view' %}" role="button">Back</a>
             </div>

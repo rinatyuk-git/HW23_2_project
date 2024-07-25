@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.views.generic import ListView, DetailView
 
 from catalog.models import Product
 
@@ -16,11 +17,12 @@ def contacts(request):
     return render(request, 'catalog/contacts.html')
 
 
-def product_view(request):
-    products = Product.objects.all()
-    context = {'products': products}
-    return render(request, 'catalog/product_basis_form.html', context)
+class ProductListView(ListView):
+    model = Product
 
+
+class ProductDetailView(DetailView):
+    model = Product
 
 def product_detail(request, pk):
     # product = Product.objects.get(pk=pk)
