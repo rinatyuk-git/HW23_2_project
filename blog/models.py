@@ -12,6 +12,7 @@ class Blog(models.Model):
     slug = models.CharField(
         max_length=180,
         verbose_name="slug",
+        **NULLABLE,
     ) # slug (реализовать через CharField)
 
     blog_info = models.TextField(
@@ -38,16 +39,3 @@ class Blog(models.Model):
         default=True,
         verbose_name = 'Признак публикации'
     ) # признак публикации
-
-"""
-Создайте новую модель блоговой записи со следующими полями:
-
-# 1 заголовок;
-# 2 slug (реализовать через CharField);
-# 3 содержимое;
-# 4 превью (изображение);
-# 5 дата создания;
-# 6 признак публикации;
-# 7 количество просмотров.
-Для работы с блогом реализуйте CRUD для новой модели.
-"""
