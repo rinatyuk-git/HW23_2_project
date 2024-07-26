@@ -23,9 +23,3 @@ class ProductListView(ListView):
 
 class ProductDetailView(DetailView):
     model = Product
-
-def product_detail(request, pk):
-    # product = Product.objects.get(pk=pk)
-    product = get_object_or_404(Product, pk=pk)
-    context = {'product': product}
-    return render(request, 'catalog/product_detail.html', context)
