@@ -30,6 +30,8 @@ class Product(models.Model):
         max_length=100,
         verbose_name="Название продукта",
         help_text="Введите название продукта",
+        unique=True,
+        **NULLABLE,
     )  # Наименование
     product_info = models.TextField(
         max_length=1255,
@@ -51,7 +53,7 @@ class Product(models.Model):
         **NULLABLE
     )  # pass # Категория
     product_price = models.DecimalField(
-        max_digits=10, 
+        max_digits=10,
         decimal_places=2,
         verbose_name="Цена продукта",
         help_text="Задайте цену продукта",
@@ -60,7 +62,7 @@ class Product(models.Model):
         auto_now_add=True,
         verbose_name="Дата внесения продукта",
         help_text="Задайте дату внесения продукта",
-    ) # Дата создания (записи в БД)
+    )  # Дата создания (записи в БД)
     updated_at = models.DateField(
         auto_now=True,
         verbose_name="Дата последнего изменения продукта",
@@ -70,7 +72,7 @@ class Product(models.Model):
         default=date.today(),
         verbose_name="Дата производства продукта",
         help_text="Задайте дату производства продукта",
-    ) # Дата производства продукта
+    )  # Дата производства продукта
 
     class Meta:
         verbose_name = "Продукт"
@@ -79,3 +81,39 @@ class Product(models.Model):
 
     def __str__(self):
         return self.product_name
+
+
+class Version(models.Model):
+    product_name = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        verbose_name='Название продукта',
+        related_name='versions'
+    )  # продукт
+
+    version_number = models.DecimalField(
+        max_digits=10,
+        decimal_places=3,
+        verbose_name="Номер версии",
+        help_text="Задайте номер версии",
+    )  # номер версии
+
+    version_name = models.CharField(
+        max_length=100,
+        verbose_name="Название версии",
+        help_text="Введите название версии",
+        unique=True,
+    )  # Название версии
+
+    is_actual = models.BooleanField(
+        default=True,
+        verbose_name='Признак текущей версии'
+    )  # признак текущей версии
+
+    class Meta:
+        verbose_name = "Версия"
+        verbose_name_plural = "Версии"
+        ordering = ['version_name', 'version_number']
+
+    def __str__(self):
+        return self.version_name
