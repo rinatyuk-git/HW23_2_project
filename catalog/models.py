@@ -2,6 +2,8 @@ from datetime import date
 
 from django.db import models
 
+from users.models import User
+
 NULLABLE = {"blank": True, "null": True}
 
 
@@ -50,7 +52,7 @@ class Product(models.Model):
         verbose_name="Категория",
         help_text="Выберите категорию продукта",
         related_name='products',
-        **NULLABLE
+        **NULLABLE,
     )  # pass # Категория
     product_price = models.DecimalField(
         max_digits=10,
@@ -73,6 +75,13 @@ class Product(models.Model):
         verbose_name="Дата производства продукта",
         help_text="Задайте дату производства продукта",
     )  # Дата производства продукта
+
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        verbose_name='Создатель',
+        **NULLABLE,
+    )
 
     class Meta:
         verbose_name = "Продукт"
