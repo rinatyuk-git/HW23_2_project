@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +22,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-7ta5bit!e*^vu_evykyy6*nxsyz^g)(@ut_njz@4y&y*@_re3w'
+
+# SECRET_KEY = 'django-insecure-7ta5bit!e*^vu_evykyy6*nxsyz^g)(@ut_njz@4y&y*@_re3w'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = os.getenv('DEBUG')
 
 ALLOWED_HOSTS = ["*"]
 
@@ -39,6 +44,7 @@ INSTALLED_APPS = [
 
     'catalog',
     'blog',
+    'users',
 
 ]
 
@@ -80,9 +86,16 @@ DATABASES = {
     'default': {
         # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'catalog',
+
+        # 'NAME': 'catalog',
+        'NAME': os.getenv('NAME'),
+
         'USER': 'postgres',
+        # 'USER': os.getenv('USER'),
+
         'PASSWORD': 'postgres',
+        # 'PASSWORD': os.getenv('PASSWORD'),
+
         # 'HOST': '127.0.0.1',
         # 'PORT': '5432',
     }
@@ -135,3 +148,21 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 # MEDIA_ROOT = os.path.join(BASE_DIR / 'media')
+AUTH_USER_MODEL = 'users.User'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 2525
+
+EMAIL_HOST_USER = "jhovorun@list.ru"
+# EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER'),
+
+EMAIL_HOST_PASSWORD = "hcDx38tcgcpikb4b2qML"
+# EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD'),
+
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
+SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
