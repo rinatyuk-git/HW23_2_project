@@ -10,7 +10,7 @@ class Command(BaseCommand):
             {
                 "product_name": "Сок клубничный",
                 "product_info": "Свежевыжатый",
-                "product_price": '15.95'
+                "product_price": "15.95",
             },
             {
                 "product_name": "Водка Nemiroff DeLuxe",
@@ -36,13 +36,10 @@ class Command(BaseCommand):
 
         products_for_create = []
         for product_item in product_list:
-            products_for_create.append(
-                Product(**product_item)
-            )
+            products_for_create.append(Product(**product_item))
 
         Product.objects.all().delete()
         Product.objects.bulk_create(products_for_create)
-
 
         category_list = [
             {"category_name": "Овощи", "category_info": "Вкусные"},
@@ -54,9 +51,7 @@ class Command(BaseCommand):
 
         categories_for_create = []
         for category_item in category_list:
-            categories_for_create.append(
-                Category(**category_item)
-            )
+            categories_for_create.append(Category(**category_item))
 
         Category.objects.all().delete()
         Category.objects.bulk_create(categories_for_create)

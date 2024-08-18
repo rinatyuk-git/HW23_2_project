@@ -13,16 +13,16 @@ from django.db import models
 class User(AbstractUser):
     username = None
     email = models.EmailField(
-        verbose_name='Почтовый адрес',
+        verbose_name="Почтовый адрес",
         unique=True,
     )
 
     phone = models.CharField(
         max_length=35,
-        verbose_name='Номер телефона',
+        verbose_name="Номер телефона",
         blank=True,
         null=True,
-    ) # номер телефона,
+    )  # номер телефона,
     avatar = models.ImageField(
         upload_to="users/images",
         verbose_name="Аватар пользователя",
@@ -32,13 +32,13 @@ class User(AbstractUser):
     )  # аватар,
     country = models.CharField(
         max_length=55,
-        verbose_name='Страна',
+        verbose_name="Страна",
         blank=True,
         null=True,
-    ) # страна,
+    )  # страна,
     token = models.CharField(
         max_length=100,
-        verbose_name='Token',
+        verbose_name="Token",
         blank=True,
         null=True,
     )

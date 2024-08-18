@@ -44,14 +44,14 @@ class Product(models.Model):
         upload_to="product/images",
         verbose_name="Изображение продукта",
         help_text="Загрузите изображение продукта",
-        **NULLABLE
+        **NULLABLE,
     )  # Изображение (превью)
     category = models.ForeignKey(
         Category,
         on_delete=models.SET_NULL,
         verbose_name="Категория",
         help_text="Выберите категорию продукта",
-        related_name='products',
+        related_name="products",
         **NULLABLE,
     )  # pass # Категория
     product_price = models.DecimalField(
@@ -79,14 +79,14 @@ class Product(models.Model):
     owner = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
-        verbose_name='Создатель',
+        verbose_name="Создатель",
         **NULLABLE,
     )
 
     class Meta:
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
-        ordering = ['product_name', 'category']
+        ordering = ["product_name", "category"]
 
     def __str__(self):
         return self.product_name
@@ -96,8 +96,8 @@ class Version(models.Model):
     product_name = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
-        verbose_name='Название продукта',
-        related_name='versions'
+        verbose_name="Название продукта",
+        related_name="versions",
     )  # продукт
 
     version_number = models.DecimalField(
@@ -115,14 +115,13 @@ class Version(models.Model):
     )  # Название версии
 
     is_actual = models.BooleanField(
-        default=True,
-        verbose_name='Признак текущей версии'
+        default=True, verbose_name="Признак текущей версии"
     )  # признак текущей версии
 
     class Meta:
         verbose_name = "Версия"
         verbose_name_plural = "Версии"
-        ordering = ['version_name', 'version_number']
+        ordering = ["version_name", "version_number"]
 
     def __str__(self):
         return self.version_name
