@@ -81,12 +81,21 @@ class Product(models.Model):
         on_delete=models.SET_NULL,
         verbose_name="Создатель",
         **NULLABLE,
-    )
+    )  # Создатель продукта
+
+    is_published = models.BooleanField(
+        default=False, verbose_name="Признак публикации"
+    )  # признак публикации
 
     class Meta:
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
         ordering = ["product_name", "category"]
+        permissions = [
+            ('can_cancel_publication', 'Can cancel publication'),  # is_published
+            ('can_edit_description', 'Can edit description'),  # product_info
+            ('can_edit_category', 'Can edit category'),  # category
+        ]  # отменять публикацию продукта, менять описание любого продукта, категорию любого продукта.
 
     def __str__(self):
         return self.product_name

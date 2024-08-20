@@ -32,10 +32,13 @@
                     </tr>
                 </table>
                 <div class="btn-group">
-                    <a class="btn btn-sm btn-outline-secondary" href="{% url 'catalog:product_detail' product.pk %}"
-                       role="button">View</a>
+                    {% if perms.catalog.can_cancel_publication and perms.catalog.can_edit_description and perms.catalog.can_edit_category or user == product.owner %}
                     <a type="button" class="btn btn-sm btn-outline-secondary"
                        href="{% url 'catalog:product_update' product.pk %}">Edit</a>
+                    {% endif %}
+                    <a class="btn btn-sm btn-outline-secondary" href="{% url 'catalog:product_detail' product.pk %}"
+                       role="button">View</a>
+
                     <a class="btn btn-sm btn-outline-secondary" href="{% url 'catalog:product_delete' product.pk %}"
                        role="button">Delete</a>
                 </div>

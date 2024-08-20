@@ -77,11 +77,3 @@ class PasswordRecoveryView(PasswordResetView):
             user.save()
             return redirect(reverse("users:login"))
         return redirect(reverse("users/password_update.html"))
-
-
-"""
-Пароль можно сгенерировать с помощью библиотеки random.
-Помните, что пароль в базе данных хранится в захешированном виде.
-Для установки пароля пользователю можно воспользоваться функцией
-make_password()
-"""
