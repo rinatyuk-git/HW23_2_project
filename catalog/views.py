@@ -12,7 +12,8 @@ from django.views.generic import (
 )
 
 from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
-from catalog.models import Product, Version
+from catalog.models import Product, Version, Category
+from catalog.services import get_product_from_cache, get_category_from_cache
 
 
 def home(request):
@@ -30,6 +31,9 @@ def contacts(request):
 
 class ProductListView(LoginRequiredMixin, ListView):
     model = Product
+
+    def get_queryset(self):
+        return get_product_from_cache()
 
 
 class ProductDetailView(LoginRequiredMixin, DetailView):
@@ -102,3 +106,10 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy("catalog:product_view")
+
+
+class CategoryListView(ListView):
+    model = Category
+
+    def get_queryset(self):
+        return get_category_from_cache()
