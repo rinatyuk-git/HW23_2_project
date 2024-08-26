@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-import os
 
 load_dotenv()
 
@@ -26,11 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-# SECRET_KEY = 'django-insecure-7ta5bit!e*^vu_evykyy6*nxsyz^g)(@ut_njz@4y&y*@_re3w'
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
 DEBUG = os.getenv("DEBUG")
 
 ALLOWED_HOSTS = ["*"]
@@ -87,12 +84,10 @@ DATABASES = {
     "default": {
         # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
         "ENGINE": "django.db.backends.postgresql",
-        # 'NAME': 'catalog',
         "NAME": os.getenv("NAME"),
         "USER": "postgres",
-        # 'USER': os.getenv('USER'),
-        "PASSWORD": "postgres",
-        # 'PASSWORD': os.getenv('PASSWORD'),
+        # 'PASSWORD': "postgres",
+        'PASSWORD': os.getenv('PASSWORD'),
         # 'HOST': '127.0.0.1',
         # 'PORT': '5432',
     }
@@ -161,3 +156,13 @@ EMAIL_USE_SSL = False
 
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+CACHE_ENABLED = os.getenv("CACHE_ENABLED"),
+
+if CACHE_ENABLED:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": os.getenv("LOCATION"),
+        }
+    }
